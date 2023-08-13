@@ -1,5 +1,8 @@
+from typing import Any
+
 class Node:
-    def __init__(self, no_sku, nama_barang, harga_satuan, jumlah_stok):
+
+    def __init__(self, no_sku:int, nama_barang:str, harga_satuan:int, jumlah_stok:int):
         self.no_sku = no_sku
         self.nama_barang = nama_barang
         self.harga_satuan = harga_satuan
@@ -11,7 +14,7 @@ class BinarySearchTree:
     def __init__(self):
         self.root = None
 
-    def insert(self, no_sku, nama_barang, harga_satuan, jumlah_stok):  # menu 1.1
+    def insert(self, no_sku:int, nama_barang:str, harga_satuan:int, jumlah_stok:int):  # menu 1.1
         new_node = Node(no_sku, nama_barang, harga_satuan, jumlah_stok)
         if self.root == None:
             self.root = new_node
@@ -35,7 +38,7 @@ class BinarySearchTree:
                     return True
                 temp = temp.right
 
-    def contains(self, no_sku):
+    def contains(self, no_sku:int):
         temp = self.root
         while temp is not None:
             if no_sku < temp.no_sku:
@@ -45,25 +48,25 @@ class BinarySearchTree:
             else:
                 return True
 
-    def search(self,root, no_sku):
+    def search(self,root:Any, no_sku:int):
         if root is None or root.no_sku == no_sku:
             return root
         if no_sku < root.no_sku:
             return self.search(root.left, no_sku)
         return self.search(root.right, no_sku)
 
-    def tambah_stok(self,no_sku, stok_tambah):
+    def tambah_stok(self,no_sku:int, stok_tambah:int):
         temp=self.root
-        node = self.search(temp,no_sku)
+        node:Any = self.search(temp,no_sku)
         if node is not None:
             node.jumlah_stok +=stok_tambah
             print("Stok berhasil ditambah.")
         else:
             print("Nomor sku tidak ditemukan.")
 
-    def kurang_stok(self,no_sku, stok_kurang):
+    def kurang_stok(self,no_sku:int, stok_kurang:int):
         temp = self.root
-        node = self.search(temp,no_sku)
+        node:Any = self.search(temp,no_sku)
         if node is not None:
             node.jumlah_stok -=stok_kurang
             print("Stok berhasil dikurangan.")
@@ -269,7 +272,7 @@ def create_new_sku():
 
 def cari_stok_barang():  # menu 1.4
     no_sku = int(input("Masukkan nomor SKU barang yang ingin ditampilkan: "))
-    node = my_tree.search(no_sku)
+    node:Any = my_tree.search(no_sku)
     if node is not None:
         print("No SKU:", node.no_sku)
         print("Nama Barang:", node.nama_barang)
