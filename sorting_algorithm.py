@@ -54,7 +54,6 @@ def merge(array1:list[int], array2:list[int])->list[int]:
 
         return combined
 
-print(merge(a,b))
 
 def merge_sort(my_list:list[int])->list[int]:
     if len(my_list)==1:
