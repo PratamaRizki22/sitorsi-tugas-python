@@ -4,11 +4,15 @@ from BST import BinarySearchTree
 
 
 my_tree = BinarySearchTree()
-data: list[list[list[int] | int | str]] = []  # list data menu 2
+TypeDataBarang=list[list[int]]
 
+TypePenjualanPerorang=list[str|TypeDataBarang|int]
+
+TypeAllPenjualan=list[TypePenjualanPerorang]
+data: TypeAllPenjualan  = []  # list data menu 3
 
 def input_data_transaksi():  # menu 2.1 input data transaksi baru
-    databarang: list[list[int]] = []  # data barang dibeli (sku dan jumlah)
+    databarang: TypeDataBarang = []  # data barang dibeli (sku dan jumlah)
     nama_konsumen = str(input("Masukkan nama konsumen: "))
     no_sku_barang_dibeli: int = int(input("Masukkan no sku barang yang dibeli: "))
     cek_sku: Optional[bool] = my_tree.contains(no_sku_barang_dibeli)
@@ -112,10 +116,10 @@ def lihat_transaksi_konsumen():  # menu 2.2
 
 
 def lihat_data_transaksi_subtotal():  # menggunakan bubble short #menu 2.3
-    list_subtotal: list[int] = []
-    for index, _ in enumerate(data):
-        sub_tot: int = data[index][2]
-        list_subtotal.append(sub_tot)
+    list_subtotal: TypePenjualanPerorang = []
+    for penjualan, _ in enumerate(data):
+        get_sub_total = data[penjualan][2]
+        list_subtotal.append(get_sub_total)
 
     def bubble_sort(my_list: list[int]) -> list[int]:
         for i in range(len(my_list) - 1, 0, -1):
