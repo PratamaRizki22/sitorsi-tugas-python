@@ -2,7 +2,7 @@ from typing import Any,Optional
 
 class Node:
 
-    def __init__(self, no_sku:int, nama_barang:str, harga_satuan:int, jumlah_stok:int):
+    def __init__(self, no_sku:int, nama_barang:str, harga_satuan:int, jumlah_stok:int | float):
         self.no_sku = no_sku
         self.nama_barang = nama_barang
         self.harga_satuan = harga_satuan
@@ -48,7 +48,7 @@ class BinarySearchTree:
             else:
                 return True
 
-    def search(self,root:Any, no_sku:int)->Any:
+    def search(self,root:Any, no_sku:int)->int:
         if root is None or root.no_sku == no_sku:
             return root
         if no_sku < root.no_sku:
@@ -85,7 +85,7 @@ class BinarySearchTree:
 
 
 
-data:list[list[str | list[int]]|int] = []  # list data menu 2
+data:Any = []  # list data menu 2
 
 def input_data_transaksi():  # menu 2.1 input data transaksi baru
 
@@ -190,7 +190,7 @@ def lihat_transaksi_konsumen():  # menu 2.2
 def lihat_data_transaksi_subtotal():  # menggunakan bubble short #menu 2.3
     list_subtotal:list[int] = []
     for index, _ in enumerate(data):
-        sub_tot:list[int] = data[index][2]
+        sub_tot:int = data[index][2]
         list_subtotal.append(sub_tot)
 
     def bubble_sort(my_list:list[int])->list[int]:
@@ -273,7 +273,7 @@ def create_new_sku()->bool:
 
 def cari_stok_barang():  # menu 1.4
     no_sku:int = int(input("Masukkan nomor SKU barang yang ingin ditampilkan: "))
-    node:Any = my_tree.search(no_sku)
+    node:Any = my_tree.search(my_tree.root,no_sku)
     if node is not None:
         print("No SKU:", node.no_sku)
         print("Nama Barang:", node.nama_barang)
