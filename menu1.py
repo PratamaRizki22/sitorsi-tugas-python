@@ -49,6 +49,7 @@ def input_data_transaksi():  # menu 2.1 input data transaksi baru
                         if my_tree.root.jumlah_stok > jumlah_barang_dibeli:
                             my_tree.kurang_stok(inp_sku, inp_jumlah)
                             print("Transaksi berhasil")
+                            
                             for index, _ in enumerate(data):
                                 for index2, _ in enumerate(data[index][1]):
                                     if data[index][1][index2][0] == inp_sku:
@@ -101,47 +102,6 @@ def input_data_transaksi():  # menu 2.1 input data transaksi baru
                 print("Transaksi dibatalkan")
                 exit()
 
-
-def lihat_transaksi_konsumen():  # menu 2.2
-    if len(data) == 0:
-        print("Data transaksi masih kosong")
-    else:
-        print("Seluruh data transaksi konsumen: ")
-        for index, _ in enumerate(data):
-            a = 1
-            print("nama: ", data[index][0])
-            for index2, _ in enumerate(data[index][1]):
-                print(f"sku barang {a}: ", data[index][1][index2][0])
-                print(f"jumlah barang {a}: ", data[index][1][index2][1])
-                a += 1
-                print("\n")
-            print("subtotal: ", data[index][2], "\n")
-
-
-def lihat_data_transaksi_subtotal():  # menggunakan bubble short #menu 2.3
-    list_subtotal: TypePenjualanPerorang = []
-    for penjualan, _ in enumerate(data):
-        get_sub_total = data[penjualan][2]
-        list_subtotal.append(get_sub_total)
-
-    bubble_sort(list_subtotal)
-
-    if len(list_subtotal) == 0:
-        print("Data transaksi masih kosong")
-    else:
-        print("Data transaksi berdasarkan subtotal: ")
-        for index, _ in enumerate(list_subtotal):
-            for index2, _ in enumerate(data):
-                print("====================================")
-                if list_subtotal[index] == data[index2][2]:
-                    print("nama: ", data[index2][0])
-                    for index3, _ in enumerate(data[index2][1]):
-                        print(f"sku {index3+1}: ", data[index2][1][index3][0])
-                        print(f"jumlah barang {index3+1}: ", data[index2][1][index3][1])
-                    print("subtotal: ", data[index2][2])
-                print("====================================")
-
-
 def input_stok_barang():  # menu 1.1
     no_sku = int(input("Masukkan no sku: "))
     if len(str(no_sku)) != 4:
@@ -151,7 +111,6 @@ def input_stok_barang():  # menu 1.1
         a = my_tree.contains(no_sku)
         if a:
             print("SKU sudah terdaftar=>anda tidak bisa menambahkan data yang sama")
-            # return False
         else:
             nama_barang = input("Silahkan Masukkan nama barang: ")
             harga_satuan = int(input("Masukkan harga satuan: "))
@@ -166,7 +125,6 @@ def input_stok_barang():  # menu 1.1
             print("Data stok barang: ")
             my_tree.print_BST(my_tree.root)
             return True
-
 
 def restock_barang():  # menu 1.2
     no_sku = int(input("Masukkan no sku: "))
