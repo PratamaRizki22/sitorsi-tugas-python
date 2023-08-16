@@ -2,6 +2,8 @@ from typing import Optional
 
 from BST import BinarySearchTree
 
+from sorting_algorithm import bubble_sort
+
 
 my_tree = BinarySearchTree()
 TypeDataBarang = list[list[int]]
@@ -9,6 +11,7 @@ TypeDataBarang = list[list[int]]
 TypePenjualanPerorang = list[str | TypeDataBarang | int]
 
 TypeAllPenjualan = list[TypePenjualanPerorang]
+
 data: TypeAllPenjualan = []  # list data menu 3
 
 
@@ -26,8 +29,7 @@ def input_data_transaksi():  # menu 2.1 input data transaksi baru
                 input("Masukkan jumlah barang yang dibeli: ")
             )
             if (
-                jumlah_barang_dibeli
-                <= my_tree.search(my_tree.root, no_sku_barang_dibeli).jumlah_stok
+                jumlah_barang_dibeli<= my_tree.search(my_tree.root, no_sku_barang_dibeli).jumlah_stok
             ):
                 print("Transaksi berhasil")
                 databarang.append([no_sku_barang_dibeli, jumlah_barang_dibeli])
@@ -121,15 +123,6 @@ def lihat_data_transaksi_subtotal():  # menggunakan bubble short #menu 2.3
     for penjualan, _ in enumerate(data):
         get_sub_total = data[penjualan][2]
         list_subtotal.append(get_sub_total)
-
-    def bubble_sort(my_list: list[int]) -> list[int]:
-        for i in range(len(my_list) - 1, 0, -1):
-            for j in range(i):
-                if my_list[j] < my_list[j + 1]:
-                    temp = my_list[j]
-                    my_list[j] = my_list[j + 1]
-                    my_list[j + 1] = temp
-        return my_list
 
     bubble_sort(list_subtotal)
 
