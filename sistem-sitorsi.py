@@ -1,4 +1,4 @@
-from typing import Any
+from typing import Any,Optional
 
 class Node:
 
@@ -12,7 +12,7 @@ class Node:
 
 class BinarySearchTree:
     def __init__(self):
-        self.root = None
+        self.root:Any = None
 
     def insert(self, no_sku:int, nama_barang:str, harga_satuan:int, jumlah_stok:int):  # menu 1.1
         new_node = Node(no_sku, nama_barang, harga_satuan, jumlah_stok)
@@ -21,7 +21,7 @@ class BinarySearchTree:
             print("SKU berhasil ditambahkan")
             return True
 
-        temp = self.root
+        temp:Any = self.root
         while True:
             if new_node.no_sku == temp.no_sku:
                 return False
@@ -48,7 +48,7 @@ class BinarySearchTree:
             else:
                 return True
 
-    def search(self,root:Any, no_sku:int):
+    def search(self,root:Any, no_sku:int)->Any:
         if root is None or root.no_sku == no_sku:
             return root
         if no_sku < root.no_sku:
@@ -73,7 +73,7 @@ class BinarySearchTree:
         else:
             print("Nomor sku tidak ditemukan.")
 
-    def print_BST(self, temp):
+    def print_BST(self, temp:Any):
         if temp is not None:
             self.print_BST(temp.left)
             print("No SKU:", temp.no_sku)
@@ -85,20 +85,20 @@ class BinarySearchTree:
 
 
 
-data = []  # list data menu 2
+data:list[list[str | list[int]]|int] = []  # list data menu 2
 
 def input_data_transaksi():  # menu 2.1 input data transaksi baru
 
-    databarang = []  # data barang dibeli (sku dan jumlah)
+    databarang:list[Any] = []  # data barang dibeli (sku dan jumlah)
     nama_konsumen = str(input("Masukkan nama konsumen: "))
-    no_sku_barang_dibeli = int(input("Masukkan no sku barang yang dibeli: "))
-    cek_sku = my_tree.contains(no_sku_barang_dibeli)
+    no_sku_barang_dibeli:int = int(input("Masukkan no sku barang yang dibeli: "))
+    cek_sku:Optional[bool] = my_tree.contains(no_sku_barang_dibeli)
     while True:
         print(data)
-        if cek_sku == True:
+        if cek_sku:
             print("SKU sudah terdaftar")
 
-            jumlah_barang_dibeli = int(input("Masukkan jumlah barang yang dibeli: "))
+            jumlah_barang_dibeli:int = int(input("Masukkan jumlah barang yang dibeli: "))
             if jumlah_barang_dibeli <= my_tree.search(my_tree.root,no_sku_barang_dibeli).jumlah_stok:
                 print("Transaksi berhasil")
                 databarang.append([no_sku_barang_dibeli, jumlah_barang_dibeli])
@@ -149,7 +149,7 @@ def input_data_transaksi():  # menu 2.1 input data transaksi baru
                     print("Transaksi dibatalkan")
                     return False
 
-        elif cek_sku == False:
+        elif cek_sku == None :
             print("No. SKU yang diinputkan blm terdaftar")
             lanjut = input("Apakah anda ingin melanjutkan transaksi? (Y/N): ")
             if lanjut == "Y":
@@ -188,12 +188,12 @@ def lihat_transaksi_konsumen():  # menu 2.2
 
 
 def lihat_data_transaksi_subtotal():  # menggunakan bubble short #menu 2.3
-    list_subtotal = []
+    list_subtotal:list[int] = []
     for index, _ in enumerate(data):
-        sub_tot = data[index][2]
+        sub_tot:list[int] = data[index][2]
         list_subtotal.append(sub_tot)
 
-    def bubble_sort(my_list):
+    def bubble_sort(my_list:list[int])->list[int]:
         for i in range(len(my_list) - 1, 0, -1):
             for j in range(i):
                 if my_list[j] < my_list[j + 1]:
@@ -257,21 +257,22 @@ def restock_barang():  # menu 1.2
         print("SKU belum terdaftar => buat sku data stok barang terlebih dahulu")
         create_new_sku()
 
-def create_new_sku():
+def create_new_sku()->bool:
     no_sku = int(input("Masukkan no sku: "))
-    a = my_tree.contains(no_sku)
-    if a:
-        print("SKU sudah terdaftar => berhasil restock")
-        return False
-    else:
+    node = my_tree.contains(no_sku)
+
+    if node==None:
         nama_barang = input("Masukkan nama barang: ")
         harga_satuan = int(input("Masukkan harga satuan: "))
         jumlah_stok = int(input("Masukkan jumlah stok: "))
         my_tree.insert(no_sku, nama_barang, harga_satuan, jumlah_stok)
         return True
 
+    print("SKU sudah terdaftar => berhasil restock")
+    return False
+
 def cari_stok_barang():  # menu 1.4
-    no_sku = int(input("Masukkan nomor SKU barang yang ingin ditampilkan: "))
+    no_sku:int = int(input("Masukkan nomor SKU barang yang ingin ditampilkan: "))
     node:Any = my_tree.search(no_sku)
     if node is not None:
         print("No SKU:", node.no_sku)
