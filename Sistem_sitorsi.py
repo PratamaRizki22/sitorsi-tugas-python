@@ -4,12 +4,13 @@ from BST import BinarySearchTree
 
 
 my_tree = BinarySearchTree()
-TypeDataBarang=list[list[int]]
+TypeDataBarang = list[list[int]]
 
-TypePenjualanPerorang=list[str|TypeDataBarang|int]
+TypePenjualanPerorang = list[str | TypeDataBarang | int]
 
-TypeAllPenjualan=list[TypePenjualanPerorang]
-data: TypeAllPenjualan  = []  # list data menu 3
+TypeAllPenjualan = list[TypePenjualanPerorang]
+data: TypeAllPenjualan = []  # list data menu 3
+
 
 def input_data_transaksi():  # menu 2.1 input data transaksi baru
     databarang: TypeDataBarang = []  # data barang dibeli (sku dan jumlah)
@@ -190,7 +191,7 @@ def create_new_sku() -> bool:
     no_sku = int(input("Masukkan no sku: "))
     node = my_tree.contains(no_sku)
 
-    if node == None:
+    if node is None:
         nama_barang = input("Masukkan nama barang: ")
         harga_satuan = int(input("Masukkan harga satuan: "))
         jumlah_stok = int(input("Masukkan jumlah stok: "))
@@ -203,14 +204,15 @@ def create_new_sku() -> bool:
 
 def cari_stok_barang():  # menu 1.4
     no_sku: int = int(input("Masukkan nomor SKU barang yang ingin ditampilkan: "))
-    node: Optional[node] = my_tree.search(my_tree.root, no_sku)
-    if node is not None:
+    node = my_tree.search(my_tree.root, no_sku)
+    if node is None:
+        print("Barang dengan nomor SKU tersebut tidak ditemukan.")
+
+    else:
         print("No SKU:", node.no_sku)
         print("Nama Barang:", node.nama_barang)
         print("Harga Satuan:", node.harga_satuan)
         print("Jumlah Stok:", node.jumlah_stok)
-    else:
-        print("Barang dengan nomor SKU tersebut tidak ditemukan.")
 
 
 def tampilkan_stok_barang():  # menu 1.3
