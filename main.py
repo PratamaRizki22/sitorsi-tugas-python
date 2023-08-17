@@ -1,12 +1,16 @@
-from Sistem_sitorsi import (
+from menu1 import (
     cari_stok_barang,
-    input_data_transaksi,
     input_stok_barang,
     restock_barang,
-    tampilkan_stok_barang,
+    tampilkan_stok_barang
+)
+from menu2 import (
+    input_data_transaksi,
     lihat_data_transaksi_subtotal,
     lihat_transaksi_konsumen
 ) 
+
+
 def menu():
     while True:
         print("============SITORSI==============")
