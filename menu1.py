@@ -1,9 +1,4 @@
-from typing import Optional
-
 from BST import BinarySearchTree
-
-from sorting_algorithm import bubble_sort
-
 
 my_tree = BinarySearchTree()
 def input_stok_barang():  # menu 1.1
