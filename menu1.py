@@ -39,9 +39,9 @@ def restock_barang():  # menu 1.2
 
 def create_new_sku() -> bool:
     no_sku = int(input("Masukkan no sku: "))
-    node = my_tree.contains(no_sku)
+    cek_sku = my_tree.contains(no_sku)
 
-    if node is None:
+    if cek_sku is None:
         nama_barang = input("Masukkan nama barang: ")
         harga_satuan = int(input("Masukkan harga satuan: "))
         jumlah_stok = int(input("Masukkan jumlah stok: "))

@@ -1,5 +1,5 @@
 from typing import Optional
-from menu1 import my_tree
+from menu1 import my_tree, create_new_sku
 
 from sorting_algorithm import bubble_sort
 
@@ -16,12 +16,13 @@ data: TypeAllPenjualan = []  # list data menu 2
 def transaction(data: TypeAllPenjualan,input_sku: int, inp_jumlah: int):
     for index, _ in enumerate(data):
         for index2, _ in enumerate(data[index][1]):
-            if data[index][1][index2][0] == input_sku:
+            if input_sku not in  data[index][1][index2][0]:
+                data[index][1].append([inp_sku, inp_jumlah])
+
+            else:
                 data[index][1][index2][1] += inp_jumlah
                 data[index][2] += my_tree.root.harga_satuan * inp_jumlah
 
-            else:
-                data[index][1].append([inp_sku, inp_jumlah])
 
 
 def input_data_transaksi():  # menu 2.1 input data transaksi baru
@@ -87,22 +88,14 @@ def input_data_transaksi():  # menu 2.1 input data transaksi baru
         elif cek_sku == None:
             print("No. SKU yang diinputkan blm terdaftar")
             lanjut = input("Apakah anda ingin melanjutkan transaksi? (Y/N): ")
-            if lanjut == "Y":
-                print("Masukkan No. SKU ")
-                no_sku_baru = int(input("Masukkan no sku: "))
-                nama_barang_baru = input("Masukkan nama barang: ")
-                harga_satuan_baru = int(input("Masukkan harga satuan: "))
-                jumlah_stok_baru = int(input("Masukkan jumlah stok: "))
 
-                my_tree.insert(
-                    no_sku_baru, nama_barang_baru, harga_satuan_baru, jumlah_stok_baru
-                )
-                print("data sudah ditambahkan, silahkan input ulang")
-                input_data_transaksi()  # input ulang
-            elif lanjut == "N":
+            if lanjut == "N":
                 print("Transaksi dibatalkan")
                 exit()
-
+            elif lanjut == "Y":
+                create_new_sku()
+                print("data sudah ditambahkan, silahkan input ulang")
+                input_data_transaksi()  # input ulang
 
 def lihat_transaksi_konsumen():  # menu 2.2
     if len(data) == 0:
