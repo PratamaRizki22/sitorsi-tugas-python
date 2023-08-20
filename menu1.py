@@ -1,5 +1,5 @@
 from BST import BinarySearchTree
-
+from help_func import create_new_sku
 my_tree = BinarySearchTree()
 def input_stok_barang():  # menu 1.1
     no_sku = int(input("Masukkan no sku: "))
@@ -31,25 +31,13 @@ def restock_barang():  # menu 1.2
     if a:
         print("SKU sudah terdaftar")
         restock = int(input("Masukkan jumlah barang yang di restock: "))
-        my_tree.tambah_stok(no_sku, restock)
+        my_tree.add(no_sku, restock)
     else:
         print("SKU belum terdaftar => buat sku data stok barang terlebih dahulu")
         create_new_sku()
 
 
-def create_new_sku() -> bool:
-    no_sku = int(input("Masukkan no sku: "))
-    cek_sku = my_tree.contains(no_sku)
 
-    if cek_sku is None:
-        nama_barang = input("Masukkan nama barang: ")
-        harga_satuan = int(input("Masukkan harga satuan: "))
-        jumlah_stok = int(input("Masukkan jumlah stok: "))
-        my_tree.insert(no_sku, nama_barang, harga_satuan, jumlah_stok)
-        return True
-
-    print("SKU sudah terdaftar => berhasil restock")
-    return False
 
 def tampilkan_stok_barang():  # menu 1.3
     if my_tree.root is None:
