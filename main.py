@@ -2,13 +2,13 @@ from menu1 import (
     cari_stok_barang,
     input_stok_barang,
     restock_barang,
-    tampilkan_stok_barang
+    tampilkan_stok_barang,
 )
 from menu2 import (
     input_data_transaksi,
     lihat_data_transaksi_subtotal,
-    lihat_transaksi_konsumen
-) 
+    lihat_transaksi_konsumen,
+)
 
 
 def menu():
@@ -58,7 +58,9 @@ def menu():
                 print("Anda memilih menu 2.2(lihat seluruh transaksi konsumen)")
                 lihat_transaksi_konsumen()
             elif pilihmenu2 == 3:
-                print("Anda memilih menu 2.3(lihat data transaksi berdasarkan subtotal)")
+                print(
+                    "Anda memilih menu 2.3(lihat data transaksi berdasarkan subtotal)"
+                )
                 lihat_data_transaksi_subtotal()
         elif pilih == 0:
             print("Anda Keluar dari program,Terima kasih telah menggunakan program ini")

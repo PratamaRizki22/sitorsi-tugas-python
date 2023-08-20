@@ -1,14 +1,17 @@
 from BST import BinarySearchTree
 from help_func import create_new_sku
+
 my_tree = BinarySearchTree()
-def input_stok_barang():  # menu 1.1
+
+
+def input_stok_barang():  #* menu 1.1
     no_sku = int(input("Masukkan no sku: "))
     if len(str(no_sku)) != 4:
         print("SKU harus 4 digit angka")
         return False
     elif len(str(no_sku)) == 4:
-        a = my_tree.contains(no_sku)
-        if a:
+        cek_sku = my_tree.contains(no_sku)
+        if cek_sku==True:
             print("SKU sudah terdaftar=>anda tidak bisa menambahkan data yang sama")
         else:
             nama_barang = input("Silahkan Masukkan nama barang: ")
@@ -25,10 +28,11 @@ def input_stok_barang():  # menu 1.1
             my_tree.print_BST(my_tree.root)
             return True
 
-def restock_barang():  # menu 1.2
+
+def restock_barang():  #* menu 1.2
     no_sku = int(input("Masukkan no sku: "))
-    a = my_tree.contains(no_sku)
-    if a:
+    cek_sku = my_tree.contains(no_sku)
+    if cek_sku == True:
         print("SKU sudah terdaftar")
         restock = int(input("Masukkan jumlah barang yang di restock: "))
         my_tree.add(no_sku, restock)
@@ -37,24 +41,21 @@ def restock_barang():  # menu 1.2
         create_new_sku()
 
 
-
-
-def tampilkan_stok_barang():  # menu 1.3
+def tampilkan_stok_barang():  #* menu 1.3
     if my_tree.root is None:
         print("Data stok barang masih kosong")
     else:
         my_tree.print_BST(my_tree.root)
 
-def cari_stok_barang():  # menu 1.4
+
+def cari_stok_barang():  #* menu 1.4
     no_sku: int = int(input("Masukkan nomor SKU barang yang ingin ditampilkan: "))
-    node = my_tree.search(my_tree.root, no_sku)
-    if node is None:
+    get_data = my_tree.search(my_tree.root, no_sku)
+    if get_data is None:
         print("Barang dengan nomor SKU tersebut tidak ditemukan.")
 
     else:
-        print("No SKU:", node.no_sku)
-        print("Nama Barang:", node.nama_barang)
-        print("Harga Satuan:", node.harga_satuan)
-        print("Jumlah Stok:", node.jumlah_stok)
-
-
+        print("No SKU:", get_data.no_sku)
+        print("Nama Barang:", get_data.nama_barang)
+        print("Harga Satuan:", get_data.harga_satuan)
+        print("Jumlah Stok:", get_data.jumlah_stok)

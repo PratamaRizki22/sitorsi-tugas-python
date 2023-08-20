@@ -2,7 +2,7 @@ from menu1 import my_tree
 from help_func import create_new_sku
 
 from sorting_algorithm import bubble_sort
-from help_func import transaksi,print_data_transaksi
+from help_func import transaksi, print_data_transaksi
 
 TypeDataBarang = list[list[int]]
 
@@ -10,9 +10,11 @@ TypePenjualanPerorang = list[str | TypeDataBarang | int]
 
 TypeAllPenjualan = list[TypePenjualanPerorang]
 
-data: TypeAllPenjualan = []  # list data menu 2
+data: TypeAllPenjualan = []  #* list data menu 2
 
-def input_data_transaksi():  # menu 2.1 input data transaksi baru
+
+def input_data_transaksi():  #* menu 2.1 input data transaksi baru   
+    #TODO: refactor this function
     databarang: TypeDataBarang = []  # data barang dibeli (sku dan jumlah)
     nama_konsumen = str(input("Masukkan nama konsumen: "))
     no_sku_barang_dibeli: int = int(input("Masukkan no sku barang yang dibeli: "))
@@ -31,13 +33,22 @@ def input_data_transaksi():  # menu 2.1 input data transaksi baru
                 print("data sudah ditambahkan, silahkan input ulang")
                 input_data_transaksi()  # input ulang
 
-        elif cek_sku == True:
+        else:
             print("SKU sudah terdaftar")
 
             jumlah_barang_dibeli: int = int(
                 input("Masukkan jumlah barang yang dibeli: ")
             )
-            if (
+
+            if jumlah_barang_dibeli > my_tree.root.jumlah_stok:
+                print("barang tak mencukupi")
+                lanjut = input("Apakah anda ingin melanjutkan transaksi? (Y/N): ")
+                if lanjut == "Y":
+                    return True
+                elif lanjut == "N":
+                    print("Transaksi dibatalkan")
+                    return False
+            elif (
                 jumlah_barang_dibeli
                 <= my_tree.search(my_tree.root, no_sku_barang_dibeli).jumlah_stok
             ):
@@ -68,22 +79,16 @@ def input_data_transaksi():  # menu 2.1 input data transaksi baru
                             print(
                                 "Transaksi gagal karena barang tak mencukupi=>silahkan input ulang"
                             )
-                            return True
+                        return True
 
                     elif tambah_data == "N":
                         print("Transaksi selesai")
                         return False
 
-            elif jumlah_barang_dibeli > my_tree.root.jumlah_stok:
-                print("barang tak mencukupi")
-                lanjut = input("Apakah anda ingin melanjutkan transaksi? (Y/N): ")
-                if lanjut == "Y":
-                    return True
-                elif lanjut == "N":
-                    print("Transaksi dibatalkan")
-                    return False
 
-def lihat_transaksi_konsumen():  # menu 2.2
+
+
+def lihat_transaksi_konsumen():  #* menu 2.2
     if len(data) == 0:
         print("Data transaksi masih kosong")
     else:
@@ -99,10 +104,10 @@ def lihat_transaksi_konsumen():  # menu 2.2
             print("subtotal: ", data[index][2], "\n")
 
 
-def lihat_data_transaksi_subtotal():  # menggunakan bubble short #menu 2.3
-    list_subtotal:list[int] = []
-    for penjualan, _ in enumerate(data):
-        get_sub_total = data[penjualan][2]
+def lihat_data_transaksi_subtotal():  #* menggunakan bubble short #menu 2.3
+    list_subtotal: list[int] = []
+    for index_penjualan, _ in enumerate(data):
+        get_sub_total = data[index_penjualan][2]
         list_subtotal.append(get_sub_total)
 
     bubble_sort(list_subtotal)
@@ -113,5 +118,3 @@ def lihat_data_transaksi_subtotal():  # menggunakan bubble short #menu 2.3
         print("Data transaksi berdasarkan subtotal: ")
         for index, _ in enumerate(list_subtotal):
             print_data_transaksi(index, list_subtotal, data)
-
-
