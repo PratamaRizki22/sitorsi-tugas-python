@@ -38,7 +38,9 @@ class BinarySearchTree:
                     return True
                 temp = temp.right
 
-    def contains(self, no_sku:int):
+    def contains(self, no_sku:int)->bool:
+        if self.root is None:
+            return False
         temp = self.root
         while temp is not None:
             if no_sku < temp.no_sku:
@@ -47,6 +49,9 @@ class BinarySearchTree:
                 temp = temp.right
             else:
                 return True
+        return False
+
+        
 
     def search(self,root:Optional[Node], no_sku:int)->Optional[Node]:
         if root is None or root.no_sku == no_sku:
@@ -55,7 +60,7 @@ class BinarySearchTree:
             return self.search(root.left, no_sku)
         return self.search(root.right, no_sku)
 
-    def tambah_stok(self,no_sku:int, stok_tambah:int):
+    def add(self,no_sku:int, stok_tambah:int):
         temp=self.root
         node:Optional[Node] = self.search(temp,no_sku)
         if node is not None:
@@ -64,7 +69,7 @@ class BinarySearchTree:
         else:
             print("Nomor sku tidak ditemukan.")
 
-    def kurang_stok(self,no_sku:int, stok_kurang:int):
+    def reduce(self,no_sku:int, stok_kurang:int):
         temp = self.root
         node:Optional[Node] = self.search(temp,no_sku)
         if node is not None:
