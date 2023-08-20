@@ -16,7 +16,7 @@ data: TypeAllPenjualan = []  # list data menu 2
 def transaction(data: TypeAllPenjualan,input_sku: int, inp_jumlah: int):
     for index, _ in enumerate(data):
         for index2, _ in enumerate(data[index][1]):
-            if input_sku not in  data[index][1][index2][0]:
+            if input_sku !=  data[index][1][index2][0]:
                 data[index][1].append([inp_sku, inp_jumlah])
 
             else:
@@ -126,12 +126,15 @@ def lihat_data_transaksi_subtotal():  # menggunakan bubble short #menu 2.3
     else:
         print("Data transaksi berdasarkan subtotal: ")
         for index, _ in enumerate(list_subtotal):
-            for index2, _ in enumerate(data):
-                print("====================================")
+            print_data_transaksi(index, list_subtotal)
+
+def print_data_transaksi(index: int, list_subtotal: list[int]):
+    for index2, _ in enumerate(data):
+                print(15*"=")
                 if list_subtotal[index] == data[index2][2]:
                     print("nama: ", data[index2][0])
                     for index3, _ in enumerate(data[index2][1]):
                         print(f"sku {index3+1}: ", data[index2][1][index3][0])
                         print(f"jumlah barang {index3+1}: ", data[index2][1][index3][1])
                     print("subtotal: ", data[index2][2])
-                print("====================================")
+                print(15*"=")
