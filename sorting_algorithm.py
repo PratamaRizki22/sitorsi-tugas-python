@@ -50,13 +50,13 @@ def merge(array1: list[int], array2: list[int]) -> list[int]:
 
     while i < len(array1):
             combined.append(array1[i])
+            i+=1
 
     while j < len(array2):
             combined.append(array2[j])
             j += 1
 
     return combined
-
 
 def merge_sort(my_list: list[int]) -> list[int]:
     if len(my_list) == 1:
