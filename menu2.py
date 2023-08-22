@@ -33,7 +33,7 @@ def input_data_transaksi():  #* menu 2.1 input data transaksi baru
                 print("data sudah ditambahkan, silahkan input ulang")
                 input_data_transaksi()  # input ulang
 
-        else:
+        else:  #ketika sku belum mendaftar tdk menuju menuju daftar sku
             print("SKU sudah terdaftar")
 
             jumlah_barang_dibeli: int = int(
@@ -48,10 +48,7 @@ def input_data_transaksi():  #* menu 2.1 input data transaksi baru
                 elif lanjut == "N":
                     print("Transaksi dibatalkan")
                     return False
-            elif (
-                jumlah_barang_dibeli
-                <= my_tree.search(my_tree.root, no_sku_barang_dibeli).jumlah_stok
-            ):
+            elif (jumlah_barang_dibeli<= my_tree.search(my_tree.root, no_sku_barang_dibeli).jumlah_stok):
                 print("Transaksi berhasil")
                 databarang.append([no_sku_barang_dibeli, jumlah_barang_dibeli])
                 my_tree.reduce(no_sku_barang_dibeli, jumlah_barang_dibeli)
@@ -63,7 +60,10 @@ def input_data_transaksi():  #* menu 2.1 input data transaksi baru
                     tambah_data = input(
                         "Apakah ada sku barang lain yang akan dibeli? (Y/N): "
                     )
-                    if tambah_data == "Y":
+                    if tambah_data == "N":
+                        print("Transaksi selesai")
+                        return False
+                    elif tambah_data == "Y":
                         inp_sku = int(input("Masukkan no sku: "))
                         inp_jumlah = int(input("Masukkan jumlah: "))
                         if my_tree.root.jumlah_stok > jumlah_barang_dibeli:
@@ -79,11 +79,7 @@ def input_data_transaksi():  #* menu 2.1 input data transaksi baru
                             print(
                                 "Transaksi gagal karena barang tak mencukupi=>silahkan input ulang"
                             )
-                        return True
 
-                    elif tambah_data == "N":
-                        print("Transaksi selesai")
-                        return False
 
 
 

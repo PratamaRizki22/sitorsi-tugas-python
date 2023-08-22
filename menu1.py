@@ -5,21 +5,8 @@ my_tree = BinarySearchTree()
 
 
 def input_stok_barang():  #* menu 1.1
-    no_sku = int(input("Masukkan no sku: "))
-    if len(str(no_sku)) != 4:
-        print("SKU harus 4 digit angka")
-        return False
-    elif len(str(no_sku)) == 4:
-        cek_sku = my_tree.contains(no_sku)
-        if cek_sku==True:
-            print("SKU sudah terdaftar=>anda tidak bisa menambahkan data yang sama")
-        else:
-            nama_barang = input("Silahkan Masukkan nama barang: ")
-            harga_satuan = int(input("Masukkan harga satuan: "))
-            jumlah_stok = int(input("Masukkan jumlah stok: "))
-            my_tree.insert(no_sku, nama_barang, harga_satuan, jumlah_stok)
-
-        lagi = input("Apakah anda ingin menambahkan data lagi? (Y/N): ")
+        create_new_sku()
+        lagi = input("Apakah anda ingin menambahkan data barang lagi? (Y/N): ")
         if lagi == "Y":
             input_stok_barang()
         elif lagi == "N":
@@ -34,8 +21,8 @@ def restock_barang():  #* menu 1.2
     cek_sku = my_tree.contains(no_sku)
     if cek_sku == True:
         print("SKU sudah terdaftar")
-        restock = int(input("Masukkan jumlah barang yang di restock: "))
-        my_tree.add(no_sku, restock)
+        jumlah_restock = int(input("Masukkan jumlah barang yang di restock: "))
+        my_tree.add(no_sku, jumlah_restock)
     else:
         print("SKU belum terdaftar => buat sku data stok barang terlebih dahulu")
         create_new_sku()
