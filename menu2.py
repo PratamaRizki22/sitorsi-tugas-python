@@ -14,19 +14,17 @@ data: TypeAllPenjualan = []  #* list data menu 2
 
 
 def input_data_transaksi():  #* menu 2.1 input data transaksi baru   
-    #TODO: refactor this function
     databarang: TypeDataBarang = []  # data barang dibeli (sku dan jumlah)
     nama_konsumen = str(input("Masukkan nama konsumen: "))
     no_sku_barang_dibeli: int = int(input("Masukkan no sku barang yang dibeli: "))
     cek_sku: bool = my_tree.contains(no_sku_barang_dibeli)
     while True:
-        print(data)
         if cek_sku == False:
             print("No. SKU yang diinputkan blm terdaftar")
             lanjut = input("Apakah anda ingin melanjutkan transaksi? (Y/N): ")
 
             if lanjut == "N":
-                print("Transaksi dibatalkan")
+                print("Transaksi telah dibatalkan")
                 exit()
             elif lanjut == "Y":
                 create_new_sku()
@@ -49,14 +47,15 @@ def input_data_transaksi():  #* menu 2.1 input data transaksi baru
                     print("Transaksi dibatalkan")
                     return False
             elif (jumlah_barang_dibeli<= my_tree.search(my_tree.root, no_sku_barang_dibeli).jumlah_stok):
-                print("Transaksi berhasil")
                 databarang.append([no_sku_barang_dibeli, jumlah_barang_dibeli])
                 my_tree.reduce(no_sku_barang_dibeli, jumlah_barang_dibeli)
 
                 sub_total = my_tree.root.harga_satuan * jumlah_barang_dibeli
 
                 data.append([nama_konsumen, databarang, sub_total])
+                print("Transaksi berhasil")
                 while True:
+                    print(data)
                     tambah_data = input(
                         "Apakah ada sku barang lain yang akan dibeli? (Y/N): "
                     )
@@ -66,23 +65,27 @@ def input_data_transaksi():  #* menu 2.1 input data transaksi baru
                     elif tambah_data == "Y":
                         inp_sku = int(input("Masukkan no sku: "))
                         inp_jumlah = int(input("Masukkan jumlah: "))
-                        if my_tree.root.jumlah_stok > jumlah_barang_dibeli:
-                            my_tree.reduce(inp_sku, inp_jumlah)
-                            print("Transaksi berhasil")
 
-                            transaksi(data, inp_sku, inp_jumlah)
+                        cek_another_sku=my_tree.contains(inp_sku)
+                        if cek_another_sku==False:
+                            print("sku belum terdaftar")
+                            create_new_sku()
+                            return True
 
-                        elif (
-                            my_tree.search(my_tree.root, inp_sku).jumlah_stok
-                            < jumlah_barang_dibeli
-                        ):
-                            print(
-                                "Transaksi gagal karena barang tak mencukupi=>silahkan input ulang"
-                            )
+                        elif cek_another_sku==True:
+                            if my_tree.root.jumlah_stok > jumlah_barang_dibeli:
+                                my_tree.reduce(inp_sku, inp_jumlah)
+                                print("Transaksi berhasil")
 
+                                transaksi(data, inp_sku, inp_jumlah)
 
-
-
+                            elif (
+                                my_tree.search(my_tree.root, inp_sku).jumlah_stok
+                                < jumlah_barang_dibeli
+                            ):
+                                print(
+                                    "Transaksi gagal karena barang tak mencukupi=>silahkan input ulang"
+                                )
 
 def lihat_transaksi_konsumen():  #* menu 2.2
     if len(data) == 0:
